@@ -1,11 +1,12 @@
 # Push-JS
 
+[TOC]
+
 ### Purpose
 
-Wrapper around Push and Notifications API
-Handles subscription and unsubscription.
+Wrapper around Push and Notifications API. Handles subscription and unsubscription. Provides some useful methods.
 
-**Needs** service worker to be installed in any way. Provide interface to perform service worker installation if needed.
+**Needs** service worker to be installed in any way. Provides an interface to perform service worker installation if needed.
 
 **Does not** provide other service worker related stuff and service worker itself.
 
@@ -29,7 +30,7 @@ push.unsubscribe().then(() => {});
 
 An options object that can contain some callbacks and a path to the service worker.
 
-*   `stateChangeCb`: receives state and an Error object if an error occured.
+*   `stateChangeCb`: receives state and an Error object if an error occurred.
 *   `subscriptionUpdateCb`: receives subscription object ([PushSubscription](https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription)).
 *   `logCb`: receives anything that should be logged.
 
@@ -37,7 +38,7 @@ An options object that can contain some callbacks and a path to the service work
 
 ##### Push.prototype.subscribe()
 
-Creates and returnes new subscription if it doesn't exist, returns old otherwise.
+Creates and returns new subscription if it does n't exist, returns old otherwise.
 
 ##### Push.prototype.unsubscribe()
 
@@ -63,5 +64,6 @@ Same as [PushManager.getSubscription()](https://developer.mozilla.org/en-US/docs
 
 ##### Push.showNotification()
 
+Accepts two parameters, same as `new Notification` constuctor does. See [MDN](https://developer.mozilla.org/ru/docs/Web/API/Notification/Notification) for the description.
 Shows notification via service worker. Returns Promise resolved with corresponding [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notification) object.
 
