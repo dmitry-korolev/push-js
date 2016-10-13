@@ -1,0 +1,26 @@
+{
+  "name": "push-js",
+  "version": "1.0.0",
+  "description": "Push and Notifications API wrapper.",
+  "main": "dist/Push.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "keywords": [
+    "push",
+    "notifications",
+    "api",
+    "web",
+    "browser"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "eslint": "^3.6.1",
+    "rollup": "^0.36.0",
+    "rollup-plugin-babel": "^2.6.1"
+  },
+  "author": "Dmitry Korolev",
+  "license": "MIT"
+}
