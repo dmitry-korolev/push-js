@@ -1,6 +1,20 @@
 # Push-JS
 
-[TOC]
+**Table of Contents**
+- [Purpose](#purpose)
+- [Usage](#usage)
+- [Constructor parameters](#constructor-parameters)
+    - [options (optional)](#options-optional)
+- [Instance methods](#instance-methods)
+    - [Push.prototype.subscribe()](#pushprototypesubscribe)
+    - [Push.prototype.unsubscribe()](#pushprototypeunsubscribe)
+- [Static methods](#static-methods)
+    - [Push.getPermissionState()](#pushgetpermissionstate)
+    - [Push.requestPermission()](#pushrequestpermission)
+    - [Push.checkSupport()](#pushchecksupport)
+    - [Push.getSubscription()](#pushgetsubscription)
+    - [Push.showNotification()](#pushshownotification)
+- [Version 1.0.1](#version-101)
 
 ### Purpose
 
@@ -67,3 +81,4 @@ Same as [PushManager.getSubscription()](https://developer.mozilla.org/en-US/docs
 Accepts two parameters, same as `new Notification` constuctor does. See [MDN](https://developer.mozilla.org/ru/docs/Web/API/Notification/Notification) for the description.
 Shows notification via service worker. Returns Promise resolved with corresponding [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notification) object.
 
+## Version 1.0.1
