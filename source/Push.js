@@ -262,12 +262,11 @@ class Push {
             })
             .then(() => {
                 this._log('Unsubscribed successfully.');
-                return this._innerUnsubscribe;
             })
             .catch(() => {
                 this._log('Something went wrong, but whatever.');
-                return this._innerUnsubscribe;
-            });
+            })
+            .then(() => this._innerUnsubscribe())
     }
 }
 
