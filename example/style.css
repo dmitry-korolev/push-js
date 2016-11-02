@@ -1,0 +1,25 @@
+main {
+    max-width: 700px;
+    padding: 20px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+td:first-child {
+    width: 100px;
+}
+
+td > input {
+    width: 100%;
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Push Notifications example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main>
+        <h1>Push Notification example</h1>
+        <p>Only https or localhost pages may access Push API.</p>
+        <p>
+            <button id="subscribe">Subscribe</button>
+        </p>
+
+        <table>
+            <tr>
+                <td>Endpoint: </td>
+                <td><input type="text" readonly title="endpoint" id="endpoint" /></td>
+            </tr>
+            <tr>
+                <td>auth key: </td>
+                <td><input type="text" readonly title="endpoint" id="auth" /></td>
+            </tr>
+            <tr>
+                <td>p256dh key: </td>
+                <td><input type="text" readonly title="endpoint" id="p256dh" /></td>
+            </tr>
+        </table>
+</main>
+
+    <script src="./app.min.js"></script>
+</body>
+</html>
