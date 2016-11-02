@@ -22,7 +22,21 @@ const plugins = [
 ];
 const banner = '/* @preserve version ' + version + ' */';
 
-// Build app
+// Build module
+rollup.rollup({
+    entry: 'source/Push.js'
+})
+    .then(bundle => {
+        bundle.write({
+            format: 'cjs',
+            dest: 'dist/Push.js',
+            moduleName: 'Push',
+            exports: 'named',
+            banner: banner
+        });
+    });
+
+// Build service worker
 rollup.rollup({
     entry: 'example/app.js',
     plugins: plugins
