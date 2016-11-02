@@ -22,22 +22,7 @@ const plugins = [
 ];
 const banner = '/* @preserve version ' + version + ' */';
 
-// Build module
-rollup.rollup({
-    entry: 'source/Push.js',
-    plugins: plugins
-})
-    .then(bundle => {
-        bundle.write({
-            format: 'umd',
-            dest: 'dist/Push.js',
-            moduleName: 'Push',
-            exports: 'named',
-            banner: banner
-        });
-    });
-
-// Build service worker
+// Build app
 rollup.rollup({
     entry: 'example/app.js',
     plugins: plugins

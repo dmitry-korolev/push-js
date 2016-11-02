@@ -15,7 +15,7 @@
     - [Push.checkSupport()](#pushchecksupport)
     - [Push.getSubscription()](#pushgetsubscription)
     - [Push.showNotification()](#pushshownotification)
-- [Version 1.0.3](#version-101)
+- [Version 1.0.4](#version-101)
 
 ### Purpose
 
@@ -32,11 +32,7 @@ You can find a basic example application including manifest.json and fully comme
 ### Usage
 
 ```js
-// ES6
 import Push from 'push-js';
-
-// ES5
-const Push = require('push-js');
 
 const push = new Push(); // All arguments are optional
 push.subscribe().then(subscription => {});
@@ -86,4 +82,4 @@ Same as [PushManager.getSubscription()](https://developer.mozilla.org/en-US/docs
 Accepts two parameters, same as `new Notification` constuctor does. See [MDN](https://developer.mozilla.org/ru/docs/Web/API/Notification/Notification) for the description.
 Shows notification via service worker. Returns Promise resolved with corresponding [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notification) object.
 
-## Version 1.0.3
+## Version 1.0.4

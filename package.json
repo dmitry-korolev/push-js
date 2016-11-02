@@ -1,8 +1,8 @@
 {
     "name": "push-js",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Push and Notifications API wrapper.",
-    "main": "dist/Push.js",
+    "main": "source/Push.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "node build",
