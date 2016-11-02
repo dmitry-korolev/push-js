@@ -296,4 +296,7 @@ class Push {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Notification
  */
 
+export {
+    states
+};
 export default Push;
