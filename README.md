@@ -2,6 +2,7 @@
 
 **Table of Contents**
 - [Purpose](#purpose)
+- [Example app](#example)
 - [Usage](#usage)
 - [Constructor parameters](#constructor-parameters)
     - [options (optional)](#options-optional)
@@ -14,7 +15,7 @@
     - [Push.checkSupport()](#pushchecksupport)
     - [Push.getSubscription()](#pushgetsubscription)
     - [Push.showNotification()](#pushshownotification)
-- [Version 1.0.1](#version-101)
+- [Version 1.0.2](#version-101)
 
 ### Purpose
 
@@ -23,6 +24,10 @@ Wrapper around Push and Notifications API. Handles subscription and unsubscripti
 **Needs** service worker to be installed in any way. Provides an interface to perform service worker installation if needed.
 
 **Does not** provide other service worker related stuff and service worker itself.
+
+### Example
+
+You can find a basic example application including manifest.json and fully commented service worker in the `example` folder.
 
 ### Usage
 
@@ -81,4 +86,4 @@ Same as [PushManager.getSubscription()](https://developer.mozilla.org/en-US/docs
 Accepts two parameters, same as `new Notification` constuctor does. See [MDN](https://developer.mozilla.org/ru/docs/Web/API/Notification/Notification) for the description.
 Shows notification via service worker. Returns Promise resolved with corresponding [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notification) object.
 
-## Version 1.0.1
+## Version 1.0.2

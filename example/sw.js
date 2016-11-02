@@ -26,6 +26,9 @@ self.addEventListener('push', event => {
     const title = json.title;
     const options = json.options;
 
+    // You need to wrap any async code into event.waitUntil,
+    // otherwise some unexpected behavior may occur. E.g. in this case browser may show some kind
+    // of technical notification ("This site has been updated in the background").
     event.waitUntil(
         self.registration.showNotification(title, options)
             .then(() => {/* here you may want to send some feedback to your API, e.g. update notification status */})
