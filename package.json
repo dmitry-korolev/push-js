@@ -1,12 +1,16 @@
 {
   "name": "push-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Push and Notifications API wrapper.",
   "main": "dist/Push.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node build",
-    "local": "node build && node example/server"
+    "local": "node build && node example/server",
+    "bump:patch": "node bump && npm run build",
+    "bump:minor": "node bump --minor && npm run build",
+    "bump:major": "node bump --major && npm run build"
+
   },
   "keywords": [
     "push",
