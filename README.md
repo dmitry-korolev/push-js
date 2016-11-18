@@ -4,6 +4,7 @@
 - [Purpose](#purpose)
 - [Example app](#example)
 - [Usage](#usage)
+- [Service worker](#service-worker)
 - [Constructor parameters](#constructor-parameters)
     - [options (optional)](#options-optional)
 - [Instance methods](#instance-methods)
@@ -23,8 +24,6 @@ Wrapper around Push and Notifications API. Handles subscription and unsubscripti
 
 **Needs** service worker to be installed in any way. Provides an interface to perform service worker installation if needed.
 
-**Does not** provide other service worker related stuff and service worker itself.
-
 ### Example
 
 You can find a basic example application including manifest.json and fully commented service worker in the `example` folder.
@@ -40,6 +39,9 @@ const push = new Push(); // All arguments are optional
 push.subscribe().then(subscription => {});
 push.unsubscribe().then(() => {});
 ```
+
+### Service worker
+There is a simple service worker provided with this package. It's needed to make notification events to work properly. You may use it as is, but the best way is to import it in your service worker, as shown in the example.
 
 ### Constructor parameters
 
