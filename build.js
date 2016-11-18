@@ -28,7 +28,7 @@ rollup.rollup({
 })
     .then(bundle => {
         bundle.write({
-            format: 'cjs',
+            format: 'es',
             dest: 'dist/Push.js',
             moduleName: 'Push',
             exports: 'named',
@@ -36,7 +36,7 @@ rollup.rollup({
         });
     });
 
-// Build service worker
+// Build app
 rollup.rollup({
     entry: 'example/app.js',
     plugins: plugins
@@ -45,6 +45,19 @@ rollup.rollup({
         bundle.write({
             format: 'iife',
             dest: 'example/app.min.js',
+            banner: banner
+        });
+    });
+
+// Build service worker
+rollup.rollup({
+    entry: 'source/service-worker.js',
+    plugins: plugins
+})
+    .then(bundle => {
+        bundle.write({
+            format: 'es',
+            dest: 'dist/service-worker.js',
             banner: banner
         });
     });

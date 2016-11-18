@@ -10,6 +10,8 @@ const rejectedStates = {
     ERROR: true
 };
 
+const notifications = Object.create(null);
+
 /**
  * Class Push.
  * @example
@@ -48,6 +50,8 @@ class Push {
         if (rejectedStates[this._state.id]) {
             return;
         }
+
+        this._addListener();
 
         this._installServiceWorker()
             .then(() => Push.getSubscription())
@@ -101,6 +105,30 @@ class Push {
             }) : Promise.resolve();
     }
 
+    _addListener() {
+        navigator.serviceWorker.addEventListener('message', event => {
+            let message = {};
+
+            try {
+                message = JSON.parse(event.data);
+            } catch (err) { /* */ }
+
+            if (
+                message.source === 'Push-JS-SW'
+                && message.data
+                && message.data.eventName
+                && notifications[message.data.tag]
+                && event.ports
+            ) {
+                const { tag, eventName } = message.data;
+                this._log('Message from SW: ', message.data);
+                event.ports[0].postMessage('OK');
+
+                notifications[tag].dispatchEvent(new Event(eventName));
+            }
+        });
+    }
+
     /**
      * @returns {Promise.<T>}
      * @private
@@ -116,13 +144,12 @@ class Push {
      * @returns {Promise.<PushSubscription>}
      * @private
      */
-    _innerSubscribe(subscription) {
+    _handleSubscribe(subscription) {
         this._updateSubscription(subscription);
         this._setState(states.SUBSCRIBED);
 
         return Promise.resolve(subscription);
     }
-
 
     /**
      * @returns {Object} Permission state
@@ -202,13 +229,22 @@ class Push {
      */
     static showNotification(title, options = {}) {
         const tag = options.tag || randId();
+        const data = options.data || {};
+        data._source = 'Push-JS-Window';
+
+        let notification;
 
         return Push.requestPermission()
             .then(() => navigator.serviceWorker.ready)
-            .then(registration => registration.showNotification(title, Object.assign({}, options, { tag })))
+            .then(registration => registration.showNotification(title, Object.assign({}, options, { data, tag })))
             .then(() => navigator.serviceWorker.ready)
             .then(registration => registration.getNotifications({ tag }))
-            .then(notifications => Promise.resolve(notifications[0]));
+            .then(matched => {
+                notification = matched[0];
+                notifications[tag] = notification;
+
+                return notification;
+            });
     }
 
     /**
@@ -220,7 +256,7 @@ class Push {
         return Push.getSubscription()
             .then(subscription => {
                 if (subscription) {
-                    return this._innerSubscribe(subscription);
+                    return this._handleSubscribe(subscription);
                 }
 
                 this._setState(states.STARTING_SUBSCRIBE);
@@ -230,7 +266,7 @@ class Push {
                     .then(registration => registration.pushManager.subscribe({
                         userVisibleOnly: true
                     }))
-                    .then(subscription => this._innerSubscribe(subscription))
+                    .then(subscription => this._handleSubscribe(subscription))
                     .catch(error => {
                         this._setState((
                             error instanceof PermissionError
@@ -245,7 +281,8 @@ class Push {
 
     /**
      * Performs unsubscription.
-     * NB: Promise.resolve() will be returned in any case. We should respect user and treat his intention to unsubscribe in a proper way.
+     * NB: Promise.resolve() will be returned in any case.
+     * We should respect user and treat his intention to unsubscribe in a proper way.
      * @returns {Promise.<Boolean>}
      * @public
      */
@@ -266,7 +303,7 @@ class Push {
             .catch(() => {
                 this._log('Something went wrong, but whatever.');
             })
-            .then(() => this._innerUnsubscribe())
+            .then(() => this._innerUnsubscribe());
     }
 }
 

@@ -1,3 +1,5 @@
+/* global Uint8Array */
+/* eslint-disable no-use-before-define, no-console */
 import Push from '../source/Push';
 
 const subscribeButton = document.getElementById('subscribe');
@@ -16,6 +18,8 @@ const P = new Push({
     serviceWorker: '/sw.js'
 });
 
+window.Push = Push;
+
 function subscribe() {
     return P.subscribe();
 }
@@ -33,10 +37,6 @@ function viewUpdate(state) {
 
 function onClick() {
     toggle();
-}
-
-function onTestClick() {
-    P.showNotification();
 }
 
 function subscriptionUpdate(sub) {

@@ -1,7 +1,14 @@
+/* global importScripts, clients */
+
 // This is an example service worker
-// It doesn't do anything, since this package doesn't handle sending push notifications
+// It doesn't do anything, since this package doesn't handle sending push notifications yet.
 // However it's purpose is to show you some basic stuff, which should be handled
 // by your service-worker, for push notifications to work properly.
+
+// Import library service-worker from dist directory.
+// It is used to receive notifications click and close events
+// and to notify parent window about them.
+importScripts('/service-worker.js');
 
 // Part 1. Installation.
 // See https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting
@@ -32,20 +39,31 @@ self.addEventListener('push', event => {
     event.waitUntil(
         self.registration.showNotification(title, options)
             .then(() => {/* here you may want to send some feedback to your API, e.g. update notification status */})
-            .catch()
+            .catch(() => {})
     );
 });
 
 // Part 3. Listening for clicks on notifications
 self.addEventListener('notificationclick', event => {
+    // Check that the notification is spawned from the push event
+    // You may use other kinds of such inspection. For example, you can pass some
+    // unique id or something in the data section of a notification object.
+    if (
+        event.notification
+        && event.notification.data
+        && event.notification.data._source === 'Push-JS-Window'
+    ) {
+        return;
+    }
+
     // First - close the notification
     event.notification.close();
 
-    // BTW, all data, you passed to the notification in Part 2,
-    // is available to you in event.notification
+    // BTW, all of the data that you passed to the notification in Part 2,
+    // is available to you in the event.notification
 
     // Maybe you want to open some page?
-    const RedirectURL = 'https://example.com';
+    const RedirectURL = (event.notification.data || {}).url || 'https://example.com';
 
     event.waitUntil(
         clients.matchAll({ type: 'window' })
@@ -58,7 +76,7 @@ self.addEventListener('notificationclick', event => {
                     return clients.openWindow(RedirectURL);
                 }
             })
-            .catch()
+            .catch(() => {})
     );
 });
 
@@ -68,7 +86,12 @@ self.addEventListener('pushsubscriptionchange', event => {
     event.waitUntil(
         // Step 1: resubscribe client.
         self.registration.pushManager.subscribe({ userVisibleOnly: true })
-            .then(subscription => {/* Step 2. Do something with new subscription. Send it's credentials to your API, do something, don't just stay! */})
-            .catch()
+            .then(subscription => { // eslint-disable-line no-unused-vars
+                /*
+                    Step 2. Do something with new subscription.
+                    Send it's credentials to your API, do something, don't just stare!
+                */
+            })
+            .catch(() => {})
     );
 });
