@@ -1,9 +1,12 @@
 import notifyAll from './utils/sw/notifyClients';
+import {
+    PUSH_JS_WINDOW
+} from './constants/channels';
 
 const isFromParent = event => !!(
     event.notification
     && event.notification.data
-    && event.notification.data._source === 'Push-JS-Window'
+    && event.notification.data._source === PUSH_JS_WINDOW
 );
 
 const sendEvent = (tag, eventName) => notifyAll({

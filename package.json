@@ -1,6 +1,6 @@
 {
   "name": "push-js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Push and Notifications API wrapper.",
   "main": "dist/Push.js",
   "scripts": {

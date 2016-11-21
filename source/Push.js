@@ -1,5 +1,9 @@
 /* global Promise */
 import states from './constants/states';
+import {
+    PUSH_JS_WINDOW,
+    PUSH_JS_SW
+} from './constants/channels';
 import noop from './utils/noop';
 import PermissionError from './utils/PermissionError';
 import randId from './utils/randId';
@@ -114,7 +118,7 @@ class Push {
             } catch (err) { /* */ }
 
             if (
-                message.source === 'Push-JS-SW'
+                message.source === PUSH_JS_SW
                 && message.data
                 && message.data.eventName
                 && notifications[message.data.tag]
@@ -133,7 +137,7 @@ class Push {
      * @returns {Promise.<T>}
      * @private
      */
-    _innerUnsubscribe() {
+    _handleUnsubscribe() {
         this._updateSubscription(null);
         this._setState(states.UNSUBSCRIBED);
 
@@ -230,7 +234,7 @@ class Push {
     static showNotification(title, options = {}) {
         const tag = options.tag || randId();
         const data = options.data || {};
-        data._source = 'Push-JS-Window';
+        data._source = PUSH_JS_WINDOW;
 
         let notification;
 
@@ -303,7 +307,7 @@ class Push {
             .catch(() => {
                 this._log('Something went wrong, but whatever.');
             })
-            .then(() => this._innerUnsubscribe());
+            .then(() => this._handleUnsubscribe());
     }
 }
 

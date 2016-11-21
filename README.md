@@ -16,7 +16,7 @@
     - [Push.checkSupport()](#pushchecksupport)
     - [Push.getSubscription()](#pushgetsubscription)
     - [Push.showNotification()](#pushshownotification)
-- [Version 1.1.0](#version-101)
+- [Version 1.1.1](#version-101)
 
 ### Purpose
 
@@ -86,4 +86,4 @@ Same as [PushManager.getSubscription()](https://developer.mozilla.org/en-US/docs
 Accepts two parameters, same as `new Notification` constuctor does. See [MDN](https://developer.mozilla.org/ru/docs/Web/API/Notification/Notification) for the description.
 Shows notification via service worker. Returns Promise resolved with corresponding [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notification) object.
 
-## Version 1.1.0
+## Version 1.1.1

@@ -1,4 +1,7 @@
 /* global MessageChannel, clients, Promise */
+import {
+    PUSH_JS_SW
+} from '../../constants/channels';
 
 const notifyClient = message => client => new Promise((resolve, reject) => {
     const channel = new MessageChannel();
@@ -19,7 +22,7 @@ const notifyAll = data => clients.matchAll({
 })
     .then(clients => {
         const message = {
-            source: 'Push-JS-SW',
+            source: PUSH_JS_SW,
             data
         };
         const notify = notifyClient(JSON.stringify(message));

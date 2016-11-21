@@ -1,4 +1,4 @@
-/* @preserve version 1.1.0 */
+/* @preserve version 1.1.1 */
 const INIT = 'INIT';
 const UNSUPPORTED = 'UNSUPPORTED';
 const PERMISSION_DENIED = 'PERMISSION_DENIED';
@@ -62,6 +62,9 @@ const states = {
         subscribed: false
     }
 };
+
+const PUSH_JS_WINDOW = 'PUSH_JS_WINDOW';
+const PUSH_JS_SW = 'PUSH_JS_SW';
 
 var noop = () => {};
 
@@ -193,7 +196,7 @@ class Push {
             } catch (err) { /* */ }
 
             if (
-                message.source === 'Push-JS-SW'
+                message.source === PUSH_JS_SW
                 && message.data
                 && message.data.eventName
                 && notifications[message.data.tag]
@@ -212,7 +215,7 @@ class Push {
      * @returns {Promise.<T>}
      * @private
      */
-    _innerUnsubscribe() {
+    _handleUnsubscribe() {
         this._updateSubscription(null);
         this._setState(states.UNSUBSCRIBED);
 
@@ -309,7 +312,7 @@ class Push {
     static showNotification(title, options = {}) {
         const tag = options.tag || randId();
         const data = options.data || {};
-        data._source = 'Push-JS-Window';
+        data._source = PUSH_JS_WINDOW;
 
         let notification;
 
@@ -382,7 +385,7 @@ class Push {
             .catch(() => {
                 this._log('Something went wrong, but whatever.');
             })
-            .then(() => this._innerUnsubscribe());
+            .then(() => this._handleUnsubscribe());
     }
 }
 
